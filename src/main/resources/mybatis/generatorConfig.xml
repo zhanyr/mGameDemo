@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="D:/dev/repo/mysql/mysql-connector-java/5.1.9/mysql-connector-java-5.1.9.jar" />
+	<context id="demo" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/demo?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull"
+			userId="root" password="910219" />
+		<javaModelGenerator targetPackage="com.zyr.demo.bean"
+			targetProject="E:/workSpace/demo/src/main/java" />
+		<sqlMapGenerator targetPackage="mybatis.mapping"
+			targetProject="E:/workSpace/demo/src/main/resources" />
+		<javaClientGenerator targetPackage="com.zyr.demo.dao"
+			targetProject="E:/workSpace/demo/src/main/java" type="MIXEDMAPPER" />
+		<table schema="demo" tableName="demo_user" />
+		<table schema="demo" tableName="demo_gift" />
+		<table schema="demo" tableName="demo_gift_key" />
+		<table schema="demo" tableName="demo_user_gift" />
+		
+	</context>
+</generatorConfiguration>
