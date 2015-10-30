@@ -7,6 +7,10 @@ public class DemoUser {
 
     private String password;
 
+    private String sex;
+
+    private String phone;
+
     private String role;
 
     private String enabled;
@@ -35,6 +39,22 @@ public class DemoUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getRole() {

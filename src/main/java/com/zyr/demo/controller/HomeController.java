@@ -27,38 +27,75 @@ public class HomeController {
     	/*********** 构造菜单  **************/
     	List<Menu> menus = new ArrayList<Menu>();
     	
-    	Menu grzx = new Menu();
-    	grzx.setId("1");
-    	grzx.setMenuname("个人中心");
+    	Menu pCenter = new Menu();
+    	pCenter.setId("1");
+    	pCenter.setMenuname("个人中心");
     	
-    	Set<Menu> children = new HashSet<Menu>();
+    	Set<Menu> pCenterChildren = new HashSet<Menu>();
     	
-    	Menu xgmm = new Menu();
-    	xgmm.setId("1_1");
-    	xgmm.setMenuname("修改密码");
-    	xgmm.setUrl("/user/modifyPwd");
-    	children.add(xgmm);
+    	Menu changePwd = new Menu();
+    	changePwd.setId("1_1");
+    	changePwd.setMenuname("修改密码");
+    	changePwd.setUrl("/user/modifyPwd");
+    	pCenterChildren.add(changePwd);
     	
-    	Menu grzl = new Menu();
-    	grzl.setId("1_2");
-    	grzl.setMenuname("个人资料");
-    	grzl.setUrl("/user/selfInfo");
-    	children.add(grzl);
+    	Menu pData = new Menu();
+    	pData.setId("1_2");
+    	pData.setMenuname("个人资料");
+    	pData.setUrl("/user/selfInfo");
+    	pCenterChildren.add(pData);
     	
-    	Menu qxgl = new Menu();
-    	qxgl.setId("1_3");
-    	qxgl.setMenuname("权限管理");
-    	qxgl.setUrl("/func/main");
-    	children.add(qxgl);
+    	Menu authorityManage = new Menu();
+    	authorityManage.setId("1_3");
+    	authorityManage.setMenuname("权限管理");
+    	authorityManage.setUrl("/func/main");
+    	pCenterChildren.add(authorityManage);
     	
-    	grzx.setChildren(children);
+    	pCenter.setChildren(pCenterChildren);
     	
-    	Menu qlb = new Menu();
-    	qlb.setId("2");
-    	qlb.setMenuname("抢礼包");
+    	Menu getGift = new Menu();
+    	getGift.setId("2");
+    	getGift.setMenuname("抢礼包");
     	
-    	menus.add(grzx);
-    	menus.add(qlb);
+    	Set<Menu> getGiftChildren = new HashSet<Menu>();
+    	
+    	Menu grabGift = new Menu();
+    	grabGift.setId("2_1");
+    	grabGift.setMenuname("抢礼包");
+    	grabGift.setUrl("/gift/getGiftType");
+    	getGiftChildren.add(grabGift);
+    	
+    	Menu giftList = new Menu();
+    	giftList.setId("2_2");
+    	giftList.setMenuname("拥有礼包");
+    	giftList.setUrl("/gift/haveGift");
+    	getGiftChildren.add(giftList);
+    	
+    	getGift.setChildren(getGiftChildren);
+    	
+    	Menu addGift = new Menu();
+    	addGift.setId("3");
+    	addGift.setMenuname("录入礼包");
+    	
+    	Set<Menu> addGiftChildren = new HashSet<Menu>();
+    	
+    	Menu addGiftType = new Menu();
+    	addGiftType.setId("3_1");
+    	addGiftType.setMenuname("添加礼包种类");
+    	addGiftType.setUrl("/gift/addGiftType");
+    	addGiftChildren.add(addGiftType);
+    	
+    	Menu addGiftKey = new Menu();
+    	addGiftKey.setId("3_2");
+    	addGiftKey.setMenuname("添加礼包码");
+    	addGiftKey.setUrl("/gift/addGiftKey");
+    	addGiftChildren.add(addGiftKey);
+    	
+    	addGift.setChildren(addGiftChildren);
+    	
+    	menus.add(pCenter);
+    	menus.add(getGift);
+    	menus.add(addGift);
     	
     	model.addAttribute("menus", menus);
         return "/home/back";

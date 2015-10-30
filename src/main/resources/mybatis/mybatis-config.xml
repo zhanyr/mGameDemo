@@ -5,7 +5,11 @@
 <configuration>
     <!-- 命名空间 -->
     <typeAliases>
-        <typeAlias alias="User" type="com.zyr.demo.bean.User"/>
+        <typeAlias alias="DemoUser" type="com.zyr.demo.bean.DemoUser"/>
+        <typeAlias alias="DemoGiftKey" type="com.zyr.demo.bean.DemoGiftKey"/>
+        <typeAlias alias="DemoGift" type="com.zyr.demo.bean.DemoGift"/>
+        <typeAlias alias="UserGift" type="com.zyr.demo.bean.UserGift"/>
+        <typeAlias alias="DemoUserGift" type="com.zyr.demo.bean.DemoUserGift"/>
     </typeAliases>
 
     <!-- 映射map -->

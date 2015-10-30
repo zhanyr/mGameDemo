@@ -1,173 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zyr.demo.dao.DemoGiftKeyMapper" >
-  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoGiftKey" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="gift_id" property="giftId" jdbcType="INTEGER" />
-    <result column="gift_key" property="giftKey" jdbcType="VARCHAR" />
-    <result column="gift_status" property="giftStatus" jdbcType="CHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyr.demo.dao.DemoGiftKeyMapper">
+  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoGiftKey">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="gift_key" jdbcType="VARCHAR" property="giftKey" />
+    <result column="gift_status" jdbcType="CHAR" property="giftStatus" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, gift_id, gift_key, gift_status
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyr.demo.bean.DemoGiftKeyExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from demo_gift_key
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <delete id="deleteByExample" parameterType="com.zyr.demo.bean.DemoGiftKeyExample" >
-    delete from demo_gift_key
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insertSelective" parameterType="com.zyr.demo.bean.DemoGiftKey" >
-    insert into demo_gift_key
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="giftId != null" >
-        gift_id,
-      </if>
-      <if test="giftKey != null" >
-        gift_key,
-      </if>
-      <if test="giftStatus != null" >
-        gift_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="giftId != null" >
-        #{giftId,jdbcType=INTEGER},
-      </if>
-      <if test="giftKey != null" >
-        #{giftKey,jdbcType=VARCHAR},
-      </if>
-      <if test="giftStatus != null" >
-        #{giftStatus,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.zyr.demo.bean.DemoGiftKeyExample" resultType="java.lang.Integer" >
-    select count(*) from demo_gift_key
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update demo_gift_key
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.giftId != null" >
-        gift_id = #{record.giftId,jdbcType=INTEGER},
-      </if>
-      <if test="record.giftKey != null" >
-        gift_key = #{record.giftKey,jdbcType=VARCHAR},
-      </if>
-      <if test="record.giftStatus != null" >
-        gift_status = #{record.giftStatus,jdbcType=CHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update demo_gift_key
-    set id = #{record.id,jdbcType=INTEGER},
-      gift_id = #{record.giftId,jdbcType=INTEGER},
-      gift_key = #{record.giftKey,jdbcType=VARCHAR},
-      gift_status = #{record.giftStatus,jdbcType=CHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zyr.demo.bean.DemoGiftKey" >
-    update demo_gift_key
-    <set >
-      <if test="giftId != null" >
-        gift_id = #{giftId,jdbcType=INTEGER},
-      </if>
-      <if test="giftKey != null" >
-        gift_key = #{giftKey,jdbcType=VARCHAR},
-      </if>
-      <if test="giftStatus != null" >
-        gift_status = #{giftStatus,jdbcType=CHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+	<insert id="addGiftKey" parameterType="DemoGiftKey">
+		insert into demo_gift_key(gift_id, gift_key)
+		values (#{giftId},#{giftKey})
+	</insert>
+	
+	<update id="updateGiftKeyById" parameterType="java.lang.Integer">
+		update demo_gift_key set gift_status = 1 where id = #{id}
+	</update>
+	
+	<select id="getGiftKey" resultMap="BaseResultMap">
+		select id, gift_id, gift_key, gift_status from demo_gift_key where gift_status=0 limit 1
+	</select>
+  
 </mapper>
