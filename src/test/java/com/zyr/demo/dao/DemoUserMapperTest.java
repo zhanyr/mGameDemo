@@ -48,12 +48,23 @@ public class DemoUserMapperTest {
 	@Test
 	public void testUpdateUser(){
 		DemoUser user = new DemoUser();
+		user.setId(1);
 		user.setUserName("zhanyr");
 		user.setPassword("11122");
 		user.setPhone("12345566");
 		user.setSex("0");
 		try{
 			demoUserMapper.updateUser(user);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+	}
+	
+	@Test
+	public void testSelectUserById(){
+		try{
+			DemoUser demoUser = demoUserMapper.selectUserById(1);
+			System.out.println(demoUser.getUserName());
 		}catch(Exception e){
 			System.out.println(e);
 		}

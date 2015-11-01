@@ -1,54 +1,42 @@
 package com.zyr.demo.service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.zyr.demo.bean.DemoUser;
 
 public interface UserService {
 	
 	/**
 	 * 新用户注册
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
+	 * @param user
+	 * @return 0成功 1失败 2其他
 	 */
-	public String addUser(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public int addUser(DemoUser user);
 	
 	/**
-	 * 用户登录
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
+	 * 用户登录验证
+	 * @param userName 用户名
+	 * @param password 密码
+	 * @return 用户信息
 	 */
-	public String login(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public DemoUser login(String userName,String password);
 	
 	/**
 	 * 校验用户名是否已存在
-	 * @param request
-	 * @param response
-	 * @return 0不存在 1已存在
-	 * @throws Exception
+	 * @param userName 用户名
+	 * @return 0不存在，用户名可用  1已存在，用户名不可用 2其他
 	 */
-	public int checkUserName(HttpServletRequest request, HttpServletResponse response)  throws Exception; 
+	public int checkUserName(String userName); 
 	
 	/**
 	 * 修改用户资料
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
+	 * @param user
+	 * @return 0修改成功 1修改失败 2其他
 	 */
-	public String changeUserData(HttpServletRequest request, HttpServletResponse response)  throws Exception; 
+	public int changeUserData(DemoUser user); 
 	
 	/**
 	 * 查看用户个人信息
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
+	 * @param user
+	 * @return 用户信息
 	 */
-	public DemoUser getUserData(HttpServletRequest request, HttpServletResponse response)  throws Exception; 
+	public DemoUser getUserData(int userId); 
 }

@@ -19,13 +19,17 @@
 	</insert>
 	
 	<select id="selectUser" parameterType="DemoUser" resultMap="BaseResultMap">
-		select user_name,password,sex,phone,role,enabled,score from demo_user
+		select id,user_name,password,sex,phone,role,enabled,score from demo_user
 		<trim suffixOverrides="and">
 			<where>
 				user_name =  #{userName}
 				<if test="null!=password and !''.equals(password.trim())"> and password = #{password} </if>
         	</where>
 		</trim>
+	</select>
+	
+	<select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score from demo_user where id=#{userId}
 	</select>
 	
 	<update id="updateUser" parameterType="DemoUser">
@@ -35,8 +39,8 @@
 			<if test="null!=sex and !''.equals(sex.trim())">sex=#{sex}, </if>
 			<if test="null!=phone and !''.equals(phone.trim())">phone=#{phone}, </if>
 			<if test="null!=enabled and !''.equals(enabled.trim())">enabled=#{enabled}, </if>
-			<if test="null!=score)">score=#{score}, </if>
+			<if test="null!=score">score=#{score}, </if>
 		</set>
-		where user_name = #{userName}
+		where id = #{id}
 	</update>
 </mapper>
