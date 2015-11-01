@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(password);
 		//登录验证
 		try{
-			DemoUser userResult = demoUserMapper.selectUser(user);
+			DemoUser userResult = demoUserMapper.validateLogin(user);
 			if(null == userResult){
 				logger.info("用户"+userName+"登录失败");
 				return null;
@@ -74,12 +74,9 @@ public class UserServiceImpl implements UserService {
 			logger.debug("用户名唯一性验证参数错误");
 			return 2;
 		}
-		//封装
-		DemoUser user = new DemoUser();
-		user.setUserName(userName);
 		//验证用户是否已存在
 		try{
-			DemoUser userResult = demoUserMapper.selectUser(user);
+			DemoUser userResult = demoUserMapper.checkUserName(userName);
 			if(null == userResult){
 				logger.info("注册验证，用户名"+userName+"不存在");
 				return 0;

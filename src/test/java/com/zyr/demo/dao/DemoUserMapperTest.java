@@ -33,13 +33,23 @@ public class DemoUserMapperTest {
 	}
 	
 	@Test
-	public void testSelectUser(){
-		DemoUser user = new DemoUser();
-		//user.setPassword("11111");
-		user.setUserName("zhanyr");
+	public void testCheckUserName(){
 		try{
-			DemoUser demoUser = demoUserMapper.selectUser(user);
+			DemoUser demoUser = demoUserMapper.checkUserName("zhanyr");
 			System.out.println(demoUser.getUserName());
+		}catch(Exception e){
+			System.out.println(e);
+		}
+	}
+	
+	@Test
+	public void testValidateLogin(){
+		DemoUser user = new DemoUser();
+		user.setUserName("zhanyr");
+		user.setPassword("11122");
+		try{
+			DemoUser login = demoUserMapper.validateLogin(user);
+			System.out.println(login);
 		}catch(Exception e){
 			System.out.println(e);
 		}
@@ -53,6 +63,7 @@ public class DemoUserMapperTest {
 		user.setPassword("11122");
 		user.setPhone("12345566");
 		user.setSex("0");
+		user.setEnabled("1");
 		try{
 			demoUserMapper.updateUser(user);
 		}catch(Exception e){

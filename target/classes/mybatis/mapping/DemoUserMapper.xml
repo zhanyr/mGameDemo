@@ -11,21 +11,33 @@
     <result column="enabled" jdbcType="CHAR" property="enabled" />
     <result column="score" jdbcType="INTEGER" property="score" />
   </resultMap>
-  <insert id="addUser" parameterType="DemoUser">
+  	<insert id="addUser" parameterType="DemoUser">
 		insert into demo_user (user_name,password,sex,phone,role,enabled,score)
 		values ( #{userName,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},#{sex,jdbcType=CHAR},#{phone,jdbcType=VARCHAR}, #{role,jdbcType=CHAR},
 		#{enabled,jdbcType=CHAR}, #{score,jdbcType=INTEGER})
 	</insert>
 	
-	<select id="selectUser" parameterType="DemoUser" resultMap="BaseResultMap">
-		select id,user_name,password,sex,phone,role,enabled,score from demo_user
-		<trim suffixOverrides="and">
-			<where>
-				user_name =  #{userName}
-				<if test="null!=password and !''.equals(password.trim())"> and password = #{password} </if>
-        	</where>
-		</trim>
+<!-- 	<select id="selectUser" parameterType="DemoUser" resultMap="BaseResultMap"> -->
+<!-- 		select id,user_name,password,sex,phone,role,enabled,score from demo_user -->
+<!-- 		<trim suffixOverrides="and"> -->
+<!-- 			<where> -->
+<!-- 				enabled = "0" and user_name =  #{userName} -->
+<!-- 				<if test="null!=password and !''.equals(password.trim())"> and password = #{password} </if> -->
+<!--         	</where> -->
+<!-- 		</trim> -->
+<!-- 	</select> -->
+
+	<select id="checkUserName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score
+		from demo_user where user_name = #{userName}
+	</select>
+
+	<select id="validateLogin" parameterType="DemoUser" resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score from
+		demo_user where enabled = "0" and user_name = #{userName}
+		and password = #{password}
 	</select>
 	
 	<select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">

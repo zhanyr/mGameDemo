@@ -29,8 +29,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void testLogin(){
-		DemoUser loginResult = userService.login("zhanyaru", "1111122");
-		System.out.println(loginResult.getUserName());
+		DemoUser loginResult = userService.login("zhanyr", "11122");
+		System.out.println(loginResult);
 	}
 	
 	@Test

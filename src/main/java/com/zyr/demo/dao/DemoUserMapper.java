@@ -12,11 +12,18 @@ public interface DemoUserMapper {
 	int addUser(DemoUser demoUser);
 	
 	/**
-	 * 用户名唯一性校验、账号密码校验
+	 * 用户名唯一性校验
 	 * @param demoUser
 	 * @return
 	 */
-	DemoUser selectUser(DemoUser demoUser);
+	DemoUser checkUserName(String userName);
+	
+	/**
+	 * 登录验证，验证用户名密码
+	 * @param demoUser
+	 * @return
+	 */
+	DemoUser validateLogin(DemoUser demoUser);
 	
 	/**
 	 * 根据id查询用户信息
