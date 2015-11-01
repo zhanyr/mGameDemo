@@ -17,8 +17,8 @@
 		update demo_gift_key set gift_status = 1 where id = #{id}
 	</update>
 	
-	<select id="getGiftKey" resultMap="BaseResultMap">
-		select id, gift_id, gift_key, gift_status from demo_gift_key where gift_status=0 limit 1
+	<select id="getGiftKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select id, gift_id, gift_key, gift_status from demo_gift_key where gift_id = #{giftId} and gift_status=0 limit 1
 	</select>
   
 </mapper>

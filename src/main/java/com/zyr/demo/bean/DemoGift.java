@@ -6,6 +6,8 @@ public class DemoGift {
     private Integer id;
 
     private String giftName;
+    
+    private Integer giftCount;
 
     private Date startTime;
 
@@ -28,8 +30,16 @@ public class DemoGift {
     public void setGiftName(String giftName) {
         this.giftName = giftName;
     }
+    
+    public Integer getGiftCount() {
+		return giftCount;
+	}
 
-    public Date getStartTime() {
+	public void setGiftCount(Integer giftCount) {
+		this.giftCount = giftCount;
+	}
+
+	public Date getStartTime() {
         return startTime;
     }
 

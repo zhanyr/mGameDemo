@@ -22,7 +22,8 @@ public class DemoGiftMapperTest {
 	@Test
 	public void testAddGift(){
 		DemoGift gift = new DemoGift();
-		gift.setGiftName("大话西游1");
+		gift.setGiftName("澶ц瘽瑗挎父1");
+		gift.setGiftCount(100);
 		gift.setStartTime(new Date());
 		gift.setEndTime(new Date());
 		try{
@@ -44,5 +45,15 @@ public class DemoGiftMapperTest {
 		}
 	}
 	
+	@Test
+	public void testUpdateGiftCount(){
+		try{
+			int updateGiftCount = demoGiftMapper.updateGiftCount(1);
+			System.out.println(updateGiftCount);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+	}
 
 }

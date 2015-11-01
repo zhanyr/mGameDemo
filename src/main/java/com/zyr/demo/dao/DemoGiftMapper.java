@@ -24,5 +24,12 @@ public interface DemoGiftMapper {
 	 * @return
 	 */
 	List<DemoGift> selectAllGift();
+	
+	/**
+	 * 修改礼包剩余数量
+	 * @param giftId 礼包id
+	 * @return
+	 */
+	int updateGiftCount(int giftId);
 
 }

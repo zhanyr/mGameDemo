@@ -41,7 +41,7 @@ public class DemoGiftKeyMapperTest {
 	@Test
 	public void testGetGiftKey(){
 		try{
-			DemoGiftKey giftKey = demoGiftKeyMapper.getGiftKey();
+			DemoGiftKey giftKey = demoGiftKeyMapper.getGiftKey(23);
 			System.out.println(giftKey.getGiftKey());
 		}catch(Exception e){
 			System.out.println(e);

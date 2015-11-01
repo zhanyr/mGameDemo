@@ -37,7 +37,7 @@ public class DemoUserGiftMapperTest {
 	@Test
 	public void testGetUserGiftByUserName(){
 		try{
-			List<UserGift> giftList = demoUserGiftMapper.getUserGiftByUserName("zhanyr");
+			List<UserGift> giftList = demoUserGiftMapper.getUserGiftByUserId(1);
 			for (UserGift userGift : giftList) {
 				System.out.println(userGift.getGiftName()+"   "+userGift.getGiftKey());
 			}

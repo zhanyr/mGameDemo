@@ -17,7 +17,7 @@ public interface DemoUserGiftMapper {
 	 * 用户查询所有抢到的礼包
 	 * @return
 	 */
-	List<UserGift> getUserGiftByUserName(String userName);
+	List<UserGift> getUserGiftByUserId(int userId);
 	
 	/**
 	 * 添加所抢礼包

@@ -8,11 +8,10 @@
     <result column="gift_key" jdbcType="VARCHAR" property="giftKey" />
   </resultMap>
   
-	<select id="getUserGiftByUserName" parameterType="java.lang.String"
+	<select id="getUserGiftByUserId" parameterType="java.lang.Integer"
 		resultType="UserGift">
 		select b.gift_name giftName, a.gift_key giftKey from demo_user_gift a,demo_gift
-		b,demo_user c where a.gift_id=b.id and a.user_id=c.id and c.user_name
-		= #{userName}
+		b where a.gift_id=b.id and a.user_id = #{userId}
 	</select>
 
 	<insert id="addUserGift" parameterType="DemoUserGift">

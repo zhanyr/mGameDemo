@@ -29,5 +29,5 @@ public interface DemoGiftKeyMapper {
 	 * 取出一个礼包码
 	 * @return
 	 */
-	DemoGiftKey getGiftKey();
+	DemoGiftKey getGiftKey(int giftId);
 }
