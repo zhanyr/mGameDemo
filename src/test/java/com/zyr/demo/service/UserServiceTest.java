@@ -19,8 +19,8 @@ public class UserServiceTest {
 	public void testAddUser(){
 		DemoUser user = new DemoUser();
 		user.setRole("0");
-		user.setPassword("1111122");
-		user.setUserName("zhanyaru");
+		user.setPassword("11111");
+		user.setUserName("zhyr");
 		user.setScore(0);
 		user.setEnabled("0");
 		int addUser = userService.addUser(user);

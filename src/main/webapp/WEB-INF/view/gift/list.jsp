@@ -32,8 +32,9 @@
 </head>
 
 <body>
-
-<input type="button" value="添加礼包" onclick="generalGift()"/>
+    <c:if test="${user.role == 1}">
+     <input type="button" value="添加礼包" onclick="generalGift()"/>
+    </c:if>
 
 <table cellpadding="1" cellspacing="1" border="1" align="center" style="width: 80%">
     <tr>
@@ -42,7 +43,11 @@
         <th>开始时间</th>
         <th>结束时间</th>
         <th>剩余数量</th>
-        <th>操作</th>
+
+        <c:if test="${user.role == 0}">
+            <th>操作</th>
+        </c:if>
+
     </tr>
 
     <c:forEach var="gift" items="${gifts}">
@@ -52,10 +57,12 @@
             <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${gift.startTime}" /></td>
             <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${gift.endTime}" /></td>
             <td>${gift.giftCount}</td>
+            <c:if test="${user.role == 0}">
             <td>
-                <input type="button" value="抢购" onclick="buy(${gift.id})"
+                <input type="button" value="抢礼包" onclick="buy(${gift.id})"
                        <c:if test="${gift.giftCount <=0}">disabled="disabled"</c:if> />
             </td>
+            </c:if>
         </tr>
     </c:forEach>
 

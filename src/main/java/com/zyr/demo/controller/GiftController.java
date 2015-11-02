@@ -2,8 +2,11 @@ package com.zyr.demo.controller;
 
 
 import com.zyr.demo.bean.DemoGift;
+import com.zyr.demo.bean.DemoUser;
 import com.zyr.demo.bean.vo.Message;
 import com.zyr.demo.service.GiftService;
+import com.zyr.demo.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +28,8 @@ import java.util.Map;
 public class GiftController {
     @Autowired
     private GiftService giftService;
+    @Autowired
+    private UserService userService;
 
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -34,9 +40,12 @@ public class GiftController {
      * @return
      */
     @RequestMapping("/list")
-    public String list(Model model) {
-        List<DemoGift> giftList = giftService.getAllGift();
+    public String list(Model model,HttpSession session) {
+    	List<DemoGift> giftList = giftService.getAllGift();
         model.addAttribute("gifts",giftList);
+
+        DemoUser user = userService.getUserData((Integer)session.getAttribute("user"));
+        model.addAttribute("user",user);
         return "/gift/list";
     }
 

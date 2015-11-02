@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2015/11/1
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-    /**
+	/**
      * 不需要做登录验证的URL
      */
     private List<String> excludedUrls;
@@ -37,6 +37,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
+        /**
+         * 包含静态资源的链接不拦截
+         */
+        if(requestUri.contains("/front/")){
+            return true;
+        }
         // 从session中获取用户信息，如果为空抛出自定义异常：AuthorizationException；否则登录校验通过
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {

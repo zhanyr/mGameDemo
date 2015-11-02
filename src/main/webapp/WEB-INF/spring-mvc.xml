@@ -50,10 +50,10 @@
                 <!--不需要登录验证的url-->
                 <property name="excludedUrls">
                     <list>
-                        <value>/login</value>
-                        <value>/toLogin</value>
-                        <value>/register</value>
-                        <value>/toRegister</value>
+                        <value>user/login</value>
+                        <value>user/toLogin</value>
+                        <value>user/register</value>
+                        <value>user/toRegister</value>
                     </list>
                 </property>
             </bean>

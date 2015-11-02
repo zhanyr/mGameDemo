@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sun.net.www.content.image.gif;
 
@@ -34,6 +35,7 @@ public class GiftServiceImpl implements GiftService {
 	DemoUserGiftMapper userGiftMapper;
 
 	@Override
+	@Transactional 
 	public List<DemoGift> getAllGift() {
 		//获取全部礼包
 		List<DemoGift> gifts = new ArrayList<DemoGift>();
