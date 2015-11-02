@@ -1,6 +1,9 @@
 package com.zyr.demo.dao;
 
+import java.util.List;
+
 import com.zyr.demo.bean.DemoGiftKey;
+
 
 
 import org.apache.ibatis.annotations.Delete;
@@ -13,10 +16,10 @@ public interface DemoGiftKeyMapper {
 	
 	/**
 	 * 添加礼包码
-	 * @param demoGiftKey
+	 * @param giftKeys
 	 * @return
 	 */
-	int addGiftKey(DemoGiftKey demoGiftKey);
+	int addGiftKey(List<DemoGiftKey> giftKeys);
 	
 	/**
 	 * 标记被抢礼包

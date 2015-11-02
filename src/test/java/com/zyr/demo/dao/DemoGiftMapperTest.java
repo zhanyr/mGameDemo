@@ -22,12 +22,13 @@ public class DemoGiftMapperTest {
 	@Test
 	public void testAddGift(){
 		DemoGift gift = new DemoGift();
-		gift.setGiftName("大话西游1");
-		gift.setGiftCount(100);
+		gift.setGiftName("大话西游4");
+		gift.setGiftCount(0);
 		gift.setStartTime(new Date());
 		gift.setEndTime(new Date());
 		try{
 			demoGiftMapper.addGift(gift);
+			System.out.println(gift.getId());
 		}catch(Exception e){
 			System.out.println(e);
 		}

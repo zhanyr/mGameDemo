@@ -1,5 +1,6 @@
 package com.zyr.demo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class GiftServiceTest {
 	@Test
 	public void testGrabGift(){
 		try{
-			String giftKey = giftService.grabGift(2, 1);
+			String giftKey = giftService.grabGift(2, 6);
 			System.out.println(giftKey);
 		}catch(Exception e){
 			System.out.println(e);
@@ -49,6 +50,21 @@ public class GiftServiceTest {
 			for (UserGift userGift : possessedGift) {
 				System.out.println(userGift.getGiftName()+":"+userGift.getGiftKey());
 			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	@Test
+	public void testAddGift(){
+		try {
+			DemoGift gift = new DemoGift();
+			gift.setGiftName("天龙八部");
+			gift.setStartTime(new Date());
+			gift.setEndTime(new Date());
+			gift.setGiftCount(10);
+			int addGift = giftService.addGift(gift);
+			System.out.println(addGift);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

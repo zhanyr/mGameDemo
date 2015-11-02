@@ -10,7 +10,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   
-	<insert id="addGift" parameterType="DemoGift">
+	<insert id="addGift" parameterType="DemoGift" useGeneratedKeys="true" keyProperty="id">
 		insert into demo_gift
 		(gift_name,gift_count,start_time,end_time,description)
 		values

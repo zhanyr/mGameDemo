@@ -18,6 +18,7 @@ import com.zyr.demo.dao.DemoGiftKeyMapper;
 import com.zyr.demo.dao.DemoGiftMapper;
 import com.zyr.demo.dao.DemoUserGiftMapper;
 import com.zyr.demo.service.GiftService;
+import com.zyr.demo.util.CommonUtil;
 
 @Service
 public class GiftServiceImpl implements GiftService {
@@ -46,32 +47,34 @@ public class GiftServiceImpl implements GiftService {
 		return gifts;
 	}
 
-	//TODO
 	@Override
 	public int addGift(DemoGift gift) {
 		//参数合法性判断
 		if(null == gift){
 			logger.info("添加礼包参数错误");
+			return 1;
+		}
+		try {
+			//添加礼包
+			giftMapper.addGift(gift);
+			//添加礼包码
+			//生成礼包码
+			List<DemoGiftKey> giftKeys = new ArrayList<DemoGiftKey>();
+			for(int i=0;i<gift.getGiftCount();i++){
+				DemoGiftKey giftKey = new DemoGiftKey();
+				giftKey.setGiftId(gift.getId());
+				giftKey.setGiftKey(CommonUtil.generalGiftKey());
+				giftKeys.add(giftKey);
+			}
+			//礼包码插入数据库
+			giftKeyMapper.addGiftKey(giftKeys);
+			logger.info("添加礼包"+gift.getGiftName()+"成功");
+			return 0;
+		} catch (Exception e) {
+			logger.error("添加礼包出现异常");
+			logger.error("异常原因："+e);
 			return 2;
 		}
-//		//添加礼包
-//		giftMapper.addGift(gift);
-//		//添加礼包码
-//		
-//		try{
-//			int addGiftResult = giftMapper.addGift(gift);
-//			if(addGiftResult <= 0){
-//				logger.info("添加礼包"+gift.getGiftName()+"失败！");
-//				return 1;
-//			}
-//			logger.info("添加礼包"+gift.getGiftName()+"成功！");
-//			return 0;
-//		}catch(Exception e){
-//			logger.error("添加礼包失败");
-//			logger.error("失败原因："+e);
-//			return 2;
-//		}
-		return 0;
 	}
 
 	//TODO
@@ -84,7 +87,7 @@ public class GiftServiceImpl implements GiftService {
 		//生成随机数抢红包
 		//未抢到，概率40%
 		int random = Math.random()<0.4?0:1;
-		System.out.println(random);
+		//System.out.println(random);
 		if( 0 == random){
 			logger.info("未抢到礼包");
 			return null;

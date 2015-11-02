@@ -1,5 +1,8 @@
 package com.zyr.demo.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.internal.matchers.StacktracePrintingMatcher;
 import org.junit.runner.RunWith;
@@ -20,10 +23,12 @@ public class DemoGiftKeyMapperTest {
 	@Test
 	public void testAddGiftKey(){
 		DemoGiftKey giftKey = new DemoGiftKey();
-		giftKey.setGiftId(23);
-		giftKey.setGiftKey("asdfgh");
+		giftKey.setGiftId(1);
+		giftKey.setGiftKey("454");
+		List<DemoGiftKey> giftKeys = new ArrayList<DemoGiftKey>();
+		giftKeys.add(giftKey);
 		try{
-			demoGiftKeyMapper.addGiftKey(giftKey);
+			demoGiftKeyMapper.addGiftKey(giftKeys);
 		}catch(Exception e){
 			System.out.println(e);
 		}

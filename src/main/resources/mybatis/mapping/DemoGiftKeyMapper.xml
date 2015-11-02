@@ -8,9 +8,12 @@
     <result column="gift_status" jdbcType="CHAR" property="giftStatus" />
   </resultMap>
 
-	<insert id="addGiftKey" parameterType="DemoGiftKey">
+	<insert id="addGiftKey" parameterType="java.util.List">
 		insert into demo_gift_key(gift_id, gift_key)
-		values (#{giftId},#{giftKey})
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.giftId},#{item.giftKey})
+		</foreach>
 	</insert>
 	
 	<update id="updateGiftKeyById" parameterType="java.lang.Integer">
