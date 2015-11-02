@@ -1,9 +1,3 @@
-<%--
-  礼包新增页面
-  User: 陈致远
-  Date: 2015/11/2 0001
-  Time: 上午 10:18
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

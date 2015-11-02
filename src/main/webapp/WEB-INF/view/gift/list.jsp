@@ -1,9 +1,3 @@
-<%--
-  礼包列表
-  User: 陈致远
-  Date: 2015/11/1 0001
-  Time: 下午 4:04
---%>
 <html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
