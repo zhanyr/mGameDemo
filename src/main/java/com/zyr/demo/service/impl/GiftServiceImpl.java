@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import sun.net.www.content.image.gif;
@@ -77,12 +78,11 @@ public class GiftServiceImpl implements GiftService {
 		}
 	}
 
-	//TODO
 	@Override
 	public String grabGift(int userId, int giftId) {
 		if(userId <= 0 || giftId <= 0){
 			logger.info("抢礼包参数错误");
-			return null;
+			return "3";
 		}
 		//生成随机数抢红包
 		//未抢到，概率40%
@@ -90,7 +90,7 @@ public class GiftServiceImpl implements GiftService {
 		//System.out.println(random);
 		if( 0 == random){
 			logger.info("未抢到礼包");
-			return null;
+			return "2";
 		}
 		//抢到，概率60%
 		try{
@@ -107,10 +107,13 @@ public class GiftServiceImpl implements GiftService {
 			userGiftMapper.addUserGift(userGift);
 			logger.info("用户id为"+userId+"抢礼包"+giftId+"成功");
 			return giftKey.getGiftKey();
+		}catch(DuplicateKeyException de){
+			logger.error("已抢过礼包");
+			return "1";
 		}catch(Exception e){
-			logger.error("未抢到礼包");
+			logger.error("出现异常，未抢到礼包");
 			logger.error("失败原因："+e);
-			return null;
+			return "3";
 		}
 	}
 

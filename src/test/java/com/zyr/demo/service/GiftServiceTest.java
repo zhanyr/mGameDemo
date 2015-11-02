@@ -36,7 +36,7 @@ public class GiftServiceTest {
 	@Test
 	public void testGrabGift(){
 		try{
-			String giftKey = giftService.grabGift(2, 6);
+			String giftKey = giftService.grabGift(1, 6);
 			System.out.println(giftKey);
 		}catch(Exception e){
 			System.out.println(e);

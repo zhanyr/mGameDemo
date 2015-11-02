@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.zyr.demo.bean.DemoUser;
 import com.zyr.demo.dao.DemoUserMapper;
 import com.zyr.demo.service.UserService;
+import com.zyr.demo.util.CommonUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 		}
 		//插入数据库
 		try{
+			user.setPassword(CommonUtil.getMD5(user.getPassword()));
 			int addUserResult = demoUserMapper.addUser(user);
 			if(addUserResult <= 0){
 				logger.info("用户"+user.getUserName()+"注册失败!");
@@ -46,12 +48,13 @@ public class UserServiceImpl implements UserService {
 			logger.debug("登录参数错误");
 			return null;
 		}
-		//封装
-		DemoUser user = new DemoUser();
-		user.setUserName(userName);
-		user.setPassword(password);
+		
 		//登录验证
 		try{
+			//封装
+			DemoUser user = new DemoUser();
+			user.setUserName(userName);
+			user.setPassword(CommonUtil.getMD5(password));
 			DemoUser userResult = demoUserMapper.validateLogin(user);
 			if(null == userResult){
 				logger.info("用户"+userName+"登录失败");
@@ -100,6 +103,7 @@ public class UserServiceImpl implements UserService {
 		}
 		//修改用户信息
 		try{
+			user.setPassword(CommonUtil.getMD5(user.getPassword()));
 			int updateUserResult = demoUserMapper.updateUser(user);
 			if(updateUserResult <= 0){
 				logger.info("用户"+user.getUserName()+"修改个人信息失败");

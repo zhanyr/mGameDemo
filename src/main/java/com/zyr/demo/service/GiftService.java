@@ -24,7 +24,7 @@ public interface GiftService {
 	 * 用户抢礼包
 	 * @param userId 用户id
 	 * @param giftId 礼包id
-	 * @return 空表示未抢到，非空表示抢到的礼包码
+	 * @return 1 已抢过该礼包  2未抢到再接再励   3出现异常 
 	 */
 	public String grabGift(int userId,int giftId);
 	

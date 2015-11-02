@@ -1,7 +1,6 @@
 package com.zyr.demo.dao;
 
 import org.junit.Test;
-import org.junit.internal.matchers.StacktracePrintingMatcher;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +20,7 @@ public class DemoUserMapperTest {
 		DemoUser user = new DemoUser();
 		user.setRole("1");
 		user.setPassword("11111");
-		user.setUserName("zhanyr");
+		user.setUserName("zhanyr111");
 		user.setScore(0);
 		user.setEnabled("0");
 		try{
