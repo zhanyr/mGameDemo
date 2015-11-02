@@ -16,6 +16,12 @@ public class CommonUtil {
         return giftKey;
     }
     
+    /**
+     * Md5加密
+     * @param str
+     * @return 加密后的字符串
+     * @throws Exception
+     */
     public static String getMD5(String str) throws Exception{
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
 		BASE64Encoder base64en = new BASE64Encoder();

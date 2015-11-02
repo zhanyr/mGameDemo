@@ -56,10 +56,14 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:basePackage="com.zyr.demo.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
-	
-    <!-- 使用annotation定义事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager"
-                          proxy-target-class="true"/>
 
+	    <!-- transaction support-->
+    <!-- PlatformTransactionMnager -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- enable transaction annotation support -->
+    <tx:annotation-driven transaction-manager="txManager" />
+	
 
 </beans>

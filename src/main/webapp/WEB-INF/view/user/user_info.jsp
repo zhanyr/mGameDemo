@@ -13,12 +13,17 @@
         function modify(){
             window.location.href = "${ctx}/user/toModify";
         }
+
+        function logout(){
+            window.location.href = "${ctx}/user/logout";
+        }
     </script>
 </head>
 
 <body>
 
 <input type="button" value="修改个人信息" onclick="modify()"/>
+<input type="button" value="退出" onclick="logout()"/>
 <table cellpadding="1" cellspacing="1" border="1" align="center" style="height: 100px; width: 300px;">
     <tr>
         <td>用户名</td>

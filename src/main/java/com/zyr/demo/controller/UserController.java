@@ -57,9 +57,6 @@ public class UserController {
     @RequestMapping("/info")
     public String info(Model model,HttpSession session) {
         Integer userId = (Integer)session.getAttribute("user");
-        if(null == userId){
-        	return "/user/login";
-        }
         DemoUser user = userService.getUserData(userId);
 
         model.addAttribute("user", user);
@@ -101,11 +98,23 @@ public class UserController {
     }
 
     /**
+     * 进入登录页面
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+
+        return "/user/login";
+    }
+
+    /**
      * 进入注册页面
      * @return
      */
     @RequestMapping("/toRegister")
     public String toRegister(Model model) {
+
         return "/user/register";
     }
 
@@ -127,8 +136,10 @@ public class UserController {
             model.addAttribute("msg",msg);
             return "/user/register";
         }else{
-            //TODO  新增用户暂定为启用状态
+            //新增用户暂定为启用状态
             user.setEnabled("0");
+            //登录送10积分
+            user.setScore(10);
             userService.addUser(user);
         }
 

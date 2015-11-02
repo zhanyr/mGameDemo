@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
@@ -75,16 +76,18 @@ public class GiftController {
     }
 
     /**
-     * 抢礼包
+     * 抢购
      *
      * @param model
      * @return 成功返回当前用户礼包页；失败返回所有礼包列表
      */
     @RequestMapping("/buy/{id}")
-    public String buy(Model model,@PathVariable Integer id,HttpSession session) {
+    @ResponseBody
+    public Message buy(Model model,@PathVariable Integer id,HttpSession session) {
        String giftKey = giftService.grabGift((Integer)session.getAttribute("user"),id);
-       Message msg = new Message();
-       //1 已抢过该礼包  2未抢到再接再励   3出现异常
+
+        Message msg = new Message();
+        //1 已抢过该礼包  2未抢到再接再励   3出现异常
         if("1".equals(giftKey)){
             msg.setResult(1);
             msg.setContent("您已经抢过该礼包，不能再抢");
@@ -98,7 +101,6 @@ public class GiftController {
             msg.setResult(0);
             msg.setContent("恭喜你，抢到礼包，礼包码是"+giftKey);
         }
-        model.addAttribute("msg",msg);
-        return "redirect:/user/gifts";
+        return msg;
     }
 }
