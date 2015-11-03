@@ -1,6 +1,7 @@
 package com.zyr.demo.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -12,10 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sun.net.www.content.image.gif;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 import com.zyr.demo.bean.DemoGift;
 import com.zyr.demo.bean.DemoGiftKey;
 import com.zyr.demo.bean.DemoUserGift;
 import com.zyr.demo.bean.UserGift;
+import com.zyr.demo.cache.DemoRedis;
+import com.zyr.demo.cache.RedisConst;
 import com.zyr.demo.dao.DemoGiftKeyMapper;
 import com.zyr.demo.dao.DemoGiftMapper;
 import com.zyr.demo.dao.DemoUserGiftMapper;
@@ -33,9 +39,11 @@ public class GiftServiceImpl implements GiftService {
 	DemoGiftKeyMapper giftKeyMapper;
 	@Autowired
 	DemoUserGiftMapper userGiftMapper;
+	
+	@Autowired
+	DemoRedis demoRedis;
 
 	@Override
-	@Transactional 
 	public List<DemoGift> getAllGift() {
 		//获取全部礼包
 		List<DemoGift> gifts = new ArrayList<DemoGift>();
@@ -81,10 +89,20 @@ public class GiftServiceImpl implements GiftService {
 	}
 
 	@Override
+	@Transactional
 	public String grabGift(int userId, int giftId) {
 		if(userId <= 0 || giftId <= 0){
 			logger.info("抢礼包参数错误");
 			return "3";
+		}
+		//查询是否已经抢到
+		HashMap<String,Integer> map = new HashMap<String, Integer>();
+		map.put("userId", userId);
+		map.put("giftId", giftId);
+		String giftKeyResult = userGiftMapper.getUserGiftByUIdAndGid(map);
+		if(null != giftKeyResult){
+			logger.info("已抢过礼包");
+			return "1";
 		}
 		//生成随机数抢红包
 		//未抢到，概率40%
@@ -108,10 +126,12 @@ public class GiftServiceImpl implements GiftService {
 			userGift.setGiftKey(giftKey.getGiftKey());
 			userGiftMapper.addUserGift(userGift);
 			logger.info("用户id为"+userId+"抢礼包"+giftId+"成功");
+			
+			//抢礼包成功,将用户礼包redis 缓存删除
+			if(demoRedis.isExists(RedisConst.USER_GIFTS+userId))
+				demoRedis.delKey(RedisConst.USER_GIFTS+userId);
+			
 			return giftKey.getGiftKey();
-		}catch(DuplicateKeyException de){
-			logger.error("已抢过礼包");
-			return "1";
 		}catch(Exception e){
 			logger.error("出现异常，未抢到礼包");
 			logger.error("失败原因："+e);
@@ -125,9 +145,26 @@ public class GiftServiceImpl implements GiftService {
 			logger.info("查询用户拥有礼包列表参数错误");
 			return null;
 		}
+		
+		//查看redis
+		//redis存在
+		String keyString = RedisConst.USER_GIFTS+userId;
+		String valueCache = demoRedis.get(keyString);
+		if(null != valueCache){
+			List<UserGift> userGiftsCache = JSONArray.parseArray(valueCache, UserGift.class);
+			return userGiftsCache;
+		}
+		
+		//redis不存在
 		try{
 			List<UserGift> userGifts = userGiftMapper.getUserGiftByUserId(userId);
 			logger.info("查询用户拥有礼包成功");
+			
+			//存入redis
+			if(userGifts.size()>0){
+				String giftsValue = JSONArray.toJSONString(userGifts);
+				demoRedis.setWithExpireTime(keyString, giftsValue,RedisConst.USER_GIFTS_TIME);
+			}
 			return userGifts;
 		}catch(Exception e){
 			logger.error("查询拥有的礼包失败");

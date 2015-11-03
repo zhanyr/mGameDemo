@@ -1,5 +1,6 @@
 package com.zyr.demo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -44,6 +45,20 @@ public class DemoUserGiftMapperTest {
 		}catch(Exception e){
 			System.out.println(e);
 		}
+	}
+	
+	@Test
+	public void testGetUserGiftByUIdAndGid(){
+		try {
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("userId", 1);
+			map.put("giftId", 1);
+			String giftKey = demoUserGiftMapper.getUserGiftByUIdAndGid(map);
+			System.out.println(giftKey);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 	
 

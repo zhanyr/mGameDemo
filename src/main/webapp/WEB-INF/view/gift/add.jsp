@@ -23,11 +23,11 @@
                     giftName : "required",
                     startTime : {
                         required:true,
-                        date:true
+                        dateISO:true
                     },
                     endTime : {
                         required:true,
-                        date:true
+                        dateISO:true
                     },
                     giftCount : {
                         digits:true
@@ -37,11 +37,11 @@
                     giftName : "礼包名称必填",
                     startTime : {
                         required : "开始时间必填",
-                        date : "输入项需符合日期格式yyyy-mm-dd hh:mm:ss"
+                        date : "输入项需符合日期格式yyyy-mm-dd"
                     },
                     endTime : {
                         required : "结束时间必填",
-                        date : "输入项需符合日期格式yyyy-mm-dd hh:mm:ss"
+                        date : "输入项需符合日期格式yyyy-mm-dd"
                     },
                     giftCount : {
                     	required : "礼包数量必填",

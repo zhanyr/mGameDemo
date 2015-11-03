@@ -20,5 +20,10 @@
 		(#{userId,jdbcType=INTEGER},#{giftId,jdbcType=INTEGER},
 		#{giftKey,jdbcType=VARCHAR})
 	</insert>
+	
+	<select id="getUserGiftByUIdAndGid" parameterType="java.util.Map" resultType="java.lang.String">
+		select gift_key from demo_user_gift where user_id = #{userId} and gift_id =
+		#{giftId}
+	</select>
   
 </mapper>

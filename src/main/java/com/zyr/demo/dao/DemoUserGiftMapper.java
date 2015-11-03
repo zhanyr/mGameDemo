@@ -1,5 +1,6 @@
 package com.zyr.demo.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.zyr.demo.bean.DemoUserGift;
@@ -25,4 +26,11 @@ public interface DemoUserGiftMapper {
 	 * @return
 	 */
 	int addUserGift(DemoUserGift demoUserGift);
+	
+	/**
+	 * 查询用户是否已经抢过礼包
+	 * @param map
+	 * @return
+	 */
+	String getUserGiftByUIdAndGid(HashMap<String, Integer> map);
 }
