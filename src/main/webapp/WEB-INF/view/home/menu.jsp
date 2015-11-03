@@ -17,7 +17,9 @@
   <ul>
     <li><a href="${ctx}/user/info" target="mainFrame">个人信息</a></li>
     <li><a href="${ctx}/gift/list" target="mainFrame">礼包列表</a></li>
+    <c:if test="${user.role == 0}">
     <li><a href="${ctx}/user/gifts" target="mainFrame">礼包查询</a></li>
+    </c:if>
   </ul>
 
 </body>

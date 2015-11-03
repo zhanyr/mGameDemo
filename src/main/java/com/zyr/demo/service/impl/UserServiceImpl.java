@@ -3,6 +3,7 @@ package com.zyr.demo.service.impl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zyr.demo.bean.DemoUser;
 import com.zyr.demo.dao.DemoUserMapper;
@@ -10,6 +11,7 @@ import com.zyr.demo.service.UserService;
 import com.zyr.demo.util.CommonUtil;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	Logger logger = Logger.getLogger(UserServiceImpl.class);
 	

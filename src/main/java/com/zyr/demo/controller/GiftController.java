@@ -44,7 +44,8 @@ public class GiftController {
     	List<DemoGift> giftList = giftService.getAllGift();
         model.addAttribute("gifts",giftList);
 
-        DemoUser user = userService.getUserData((Integer)session.getAttribute("user"));
+//        DemoUser user = userService.getUserData((Integer)session.getAttribute("user"));
+        DemoUser user = (DemoUser) session.getAttribute("user");
         model.addAttribute("user",user);
         return "/gift/list";
     }
@@ -93,7 +94,8 @@ public class GiftController {
     @RequestMapping("/buy/{id}")
     @ResponseBody
     public Message buy(Model model,@PathVariable Integer id,HttpSession session) {
-       String giftKey = giftService.grabGift((Integer)session.getAttribute("user"),id);
+    	DemoUser user = (DemoUser)session.getAttribute("user");
+    	String giftKey = giftService.grabGift(user.getId(),id);
 
         Message msg = new Message();
         //1 已抢过该礼包  2未抢到再接再励   3出现异常

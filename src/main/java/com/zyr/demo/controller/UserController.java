@@ -34,8 +34,9 @@ public class UserController {
      */
     @RequestMapping("/toModify")
     public String toModify(Model model, HttpSession session) {
-        Integer userId = (Integer)session.getAttribute("user");
-        DemoUser user = userService.getUserData(userId);
+//        Integer userId = (Integer)session.getAttribute("user");
+//        DemoUser user = userService.getUserData(userId);
+        DemoUser user = (DemoUser) session.getAttribute("user");
         model.addAttribute("user",user);
         return "/user/user_modify";
     }
@@ -56,8 +57,9 @@ public class UserController {
      */
     @RequestMapping("/info")
     public String info(Model model,HttpSession session) {
-        Integer userId = (Integer)session.getAttribute("user");
-        DemoUser user = userService.getUserData(userId);
+//        Integer userId = (Integer)session.getAttribute("user");
+//        DemoUser user = userService.getUserData(userId);
+    	DemoUser user = (DemoUser) session.getAttribute("user");
 
         model.addAttribute("user", user);
         return "/user/user_info";
@@ -89,7 +91,7 @@ public class UserController {
             model.addAttribute("msg",msg);
             return "/user/login";
         }else{
-            session.setAttribute("user",user.getId());
+            session.setAttribute("user",user);
             msg.setResult(0);
             msg.setContent("登录成功！");
             return "redirect:/home/index";
@@ -152,7 +154,8 @@ public class UserController {
      */
     @RequestMapping("/gifts")
     public String gifts(Model model,HttpSession session){
-       List<UserGift> userGiftList = giftService.possessedGift((Integer) session.getAttribute("user"));
+    	DemoUser user = (DemoUser)session.getAttribute("user");
+       List<UserGift> userGiftList = giftService.possessedGift(user.getId());
         model.addAttribute("userGifts",userGiftList);
         return "/user/gifts";
     }

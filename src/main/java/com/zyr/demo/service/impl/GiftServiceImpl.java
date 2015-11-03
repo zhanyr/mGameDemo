@@ -3,19 +3,14 @@ package com.zyr.demo.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sun.net.www.content.image.gif;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 import com.zyr.demo.bean.DemoGift;
 import com.zyr.demo.bean.DemoGiftKey;
 import com.zyr.demo.bean.DemoUserGift;
@@ -59,33 +54,34 @@ public class GiftServiceImpl implements GiftService {
 	}
 
 	@Override
+	@Transactional
 	public int addGift(DemoGift gift) {
 		//参数合法性判断
 		if(null == gift){
 			logger.info("添加礼包参数错误");
 			return 1;
 		}
-		try {
-			//添加礼包
-			giftMapper.addGift(gift);
-			//添加礼包码
-			//生成礼包码
-			List<DemoGiftKey> giftKeys = new ArrayList<DemoGiftKey>();
-			for(int i=0;i<gift.getGiftCount();i++){
-				DemoGiftKey giftKey = new DemoGiftKey();
-				giftKey.setGiftId(gift.getId());
-				giftKey.setGiftKey(CommonUtil.generalGiftKey());
-				giftKeys.add(giftKey);
-			}
-			//礼包码插入数据库
-			giftKeyMapper.addGiftKey(giftKeys);
-			logger.info("添加礼包"+gift.getGiftName()+"成功");
-			return 0;
-		} catch (Exception e) {
-			logger.error("添加礼包出现异常");
-			logger.error("异常原因："+e);
-			return 2;
+//		try {
+		// 添加礼包
+		giftMapper.addGift(gift);
+		// 添加礼包码
+		// 生成礼包码
+		List<DemoGiftKey> giftKeys = new ArrayList<DemoGiftKey>();
+		for (int i = 0; i < gift.getGiftCount(); i++) {
+			DemoGiftKey giftKey = new DemoGiftKey();
+			giftKey.setGiftId(gift.getId());
+			giftKey.setGiftKey(CommonUtil.generalGiftKey());
+			giftKeys.add(giftKey);
 		}
+		// 礼包码插入数据库
+		giftKeyMapper.addGiftKey(giftKeys);
+		logger.info("添加礼包" + gift.getGiftName() + "成功");
+		return 0;
+//		} catch (Exception e) {
+//			logger.error("添加礼包出现异常");
+//			logger.error("异常原因："+e);
+//			return 2;
+//		}
 	}
 
 	@Override
@@ -113,30 +109,30 @@ public class GiftServiceImpl implements GiftService {
 			return "2";
 		}
 		//抢到，概率60%
-		try{
-			//从key中取出一个礼包码，并将对应礼包码状态置为已被抢
-			DemoGiftKey giftKey = giftKeyMapper.getGiftKey(giftId);
-			giftKeyMapper.updateGiftKeyById(giftKey.getId());
-			//剩余数量减1
-			giftMapper.updateGiftCount(giftKey.getGiftId());
-			//将抢到的礼包码存入用户拥有礼包
-			DemoUserGift userGift = new DemoUserGift();
-			userGift.setGiftId(giftKey.getGiftId());
-			userGift.setUserId(userId);
-			userGift.setGiftKey(giftKey.getGiftKey());
-			userGiftMapper.addUserGift(userGift);
-			logger.info("用户id为"+userId+"抢礼包"+giftId+"成功");
-			
-			//抢礼包成功,将用户礼包redis 缓存删除
-			if(demoRedis.isExists(RedisConst.USER_GIFTS+userId))
-				demoRedis.delKey(RedisConst.USER_GIFTS+userId);
-			
-			return giftKey.getGiftKey();
-		}catch(Exception e){
-			logger.error("出现异常，未抢到礼包");
-			logger.error("失败原因："+e);
-			return "3";
-		}
+//		try{
+		// 从key中取出一个礼包码，并将对应礼包码状态置为已被抢
+		DemoGiftKey giftKey = giftKeyMapper.getGiftKey(giftId);
+		giftKeyMapper.updateGiftKeyById(giftKey.getId());
+		// 剩余数量减1
+		giftMapper.updateGiftCount(giftKey.getGiftId());
+		// 将抢到的礼包码存入用户拥有礼包
+		DemoUserGift userGift = new DemoUserGift();
+		userGift.setGiftId(giftKey.getGiftId());
+		userGift.setUserId(userId);
+		userGift.setGiftKey(giftKey.getGiftKey());
+		userGiftMapper.addUserGift(userGift);
+		logger.info("用户id为" + userId + "抢礼包" + giftId + "成功");
+
+		// 抢礼包成功,将用户礼包redis 缓存删除
+		if (demoRedis.isExists(RedisConst.USER_GIFTS + userId))
+			demoRedis.delKey(RedisConst.USER_GIFTS + userId);
+
+		return giftKey.getGiftKey();
+//		}catch(Exception e){
+//			logger.error("出现异常，未抢到礼包");
+//			logger.error("失败原因："+e);
+//			return "3";
+//		}
 	}
 
 	@Override
