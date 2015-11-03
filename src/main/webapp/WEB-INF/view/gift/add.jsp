@@ -30,22 +30,23 @@
                         dateISO:true
                     },
                     giftCount : {
-                        digits:true
+                    	required:true,
+                        min:0
                     }
                 },
                 messages : {
                     giftName : "礼包名称必填",
                     startTime : {
                         required : "开始时间必填",
-                        date : "输入项需符合日期格式yyyy-mm-dd"
+                        dateISO : "输入项需符合日期格式yyyy-mm-dd"
                     },
                     endTime : {
                         required : "结束时间必填",
-                        date : "输入项需符合日期格式yyyy-mm-dd"
+                        dateISO : "输入项需符合日期格式yyyy-mm-dd"
                     },
                     giftCount : {
                     	required : "礼包数量必填",
-                        digits: "只能输入数字！"
+                        min : "只能输入不小于0的数字！"
                     }
                 }
             });

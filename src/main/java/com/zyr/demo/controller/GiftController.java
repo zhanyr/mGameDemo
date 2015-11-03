@@ -86,7 +86,7 @@ public class GiftController {
     }
 
     /**
-     * 抢购
+     * 抢
      *
      * @param model
      * @return 成功返回当前用户礼包页；失败返回所有礼包列表
