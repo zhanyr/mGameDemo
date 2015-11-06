@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyr.demo.dao.DemoGiftKeyMapper">
+  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoGiftKey">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="gift_key" jdbcType="VARCHAR" property="giftKey" />
+    <result column="gift_status" jdbcType="CHAR" property="giftStatus" />
+  </resultMap>
+
+	<insert id="addGiftKey" parameterType="java.util.List">
+		insert into demo_gift_key(gift_id, gift_key)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.giftId},#{item.giftKey})
+		</foreach>
+	</insert>
+	
+	<update id="updateGiftKeyById" parameterType="java.lang.Integer">
+		update demo_gift_key set gift_status = 1 where id = #{id}
+	</update>
+	
+	<select id="getGiftKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select id, gift_id, gift_key, gift_status from demo_gift_key where gift_id = #{giftId} and gift_status=0 limit 1
+	</select>
+  
+</mapper>

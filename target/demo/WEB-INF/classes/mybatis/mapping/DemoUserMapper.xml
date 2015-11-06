@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyr.demo.dao.DemoUserMapper">
+  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="role" jdbcType="CHAR" property="role" />
+    <result column="enabled" jdbcType="CHAR" property="enabled" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+  	<insert id="addUser" parameterType="DemoUser">
+		insert into demo_user (user_name,password,sex,phone,role,enabled,score)
+		values ( #{userName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},#{sex,jdbcType=CHAR},#{phone,jdbcType=VARCHAR}, #{role,jdbcType=CHAR},
+		#{enabled,jdbcType=CHAR}, #{score,jdbcType=INTEGER})
+	</insert>
+	
+<!-- 	<select id="selectUser" parameterType="DemoUser" resultMap="BaseResultMap"> -->
+<!-- 		select id,user_name,password,sex,phone,role,enabled,score from demo_user -->
+<!-- 		<trim suffixOverrides="and"> -->
+<!-- 			<where> -->
+<!-- 				enabled = "0" and user_name =  #{userName} -->
+<!-- 				<if test="null!=password and !''.equals(password.trim())"> and password = #{password} </if> -->
+<!--         	</where> -->
+<!-- 		</trim> -->
+<!-- 	</select> -->
+
+	<select id="checkUserName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score
+		from demo_user where user_name = #{userName}
+	</select>
+
+	<select id="validateLogin" parameterType="DemoUser" resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score from
+		demo_user where enabled = "0" and user_name = #{userName}
+		and password = #{password}
+	</select>
+	
+	<select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select id,user_name,password,sex,phone,role,enabled,score from demo_user where id=#{userId}
+	</select>
+	
+	<update id="updateUser" parameterType="DemoUser">
+		update demo_user
+		<set>
+			<if test="null!=password and !''.equals(password.trim())">password = #{password}, </if>
+			<if test="null!=sex and !''.equals(sex.trim())">sex=#{sex}, </if>
+			<if test="null!=phone and !''.equals(phone.trim())">phone=#{phone}, </if>
+			<if test="null!=enabled and !''.equals(enabled.trim())">enabled=#{enabled}, </if>
+			<if test="null!=score">score=#{score}, </if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

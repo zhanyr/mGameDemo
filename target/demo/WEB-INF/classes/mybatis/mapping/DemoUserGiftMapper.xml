@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyr.demo.dao.DemoUserGiftMapper">
+  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoUserGift">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="gift_key" jdbcType="VARCHAR" property="giftKey" />
+  </resultMap>
+  
+	<select id="getUserGiftByUserId" parameterType="java.lang.Integer"
+		resultType="UserGift">
+		select b.gift_name giftName, a.gift_key giftKey from demo_user_gift a,demo_gift
+		b where a.gift_id=b.id and a.user_id = #{userId}
+	</select>
+
+	<insert id="addUserGift" parameterType="DemoUserGift">
+		insert into
+		demo_user_gift (user_id,gift_id,gift_key) values
+		(#{userId,jdbcType=INTEGER},#{giftId,jdbcType=INTEGER},
+		#{giftKey,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="getUserGiftByUIdAndGid" parameterType="java.util.Map" resultType="java.lang.String">
+		select gift_key from demo_user_gift where user_id = #{userId} and gift_id =
+		#{giftId}
+	</select>
+  
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyr.demo.dao.DemoGiftMapper">
+  <resultMap id="BaseResultMap" type="com.zyr.demo.bean.DemoGift">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gift_name" jdbcType="VARCHAR" property="giftName" />
+    <result column="gift_count" jdbcType="INTEGER" property="giftCount" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  
+	<insert id="addGift" parameterType="DemoGift" useGeneratedKeys="true" keyProperty="id">
+		insert into demo_gift
+		(gift_name,gift_count,start_time,end_time,description)
+		values
+		(#{giftName,jdbcType=VARCHAR},#{giftCount,jdbcType=INTEGER},#{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP},#{description,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectAllGift" resultMap="BaseResultMap">
+		select id, gift_name, gift_count,start_time, end_time, description from demo_gift;
+	</select> 
+	
+	<update id="updateGiftCount" parameterType="java.lang.Integer">
+		update demo_gift set gift_count = gift_count-1 where id = #{giftId};
+	</update>
+</mapper>
